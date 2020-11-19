@@ -4,8 +4,7 @@
     <div class="flex justify-center">
         <div class="w-8/12 bg-white p-6 rounded-lg">
             <form action="{{ route('posts') }}" method="post" class="mb-4">
-                @csrf
-                <div class="mb-4">
+                @csrf <div class="mb-4">
                     <label class="sr-only" for="body">Body</label>
                     <textarea
                         id="body"
@@ -40,13 +39,14 @@
 
                         <div class="flex items-center">
                             @if (!$post->likedBy(auth()->user()))
-                                <form action="{{ route('posts.likes', $post->id) }}" method="post" class="mr-1">
+                                <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
                                     @csrf
                                     <button type="submit" class="text-blue-500">Like</button>
                                 </form>
                             @else
-                                <form action="" method="post" class="mr-1">
+                                <form action="{{ route('posts.likes', $post) }}" method="post" class="mr-1">
                                     @csrf
+                                    @method('DELETE')
                                     <button type="submit" class="text-blue-500">Unlike</button>
                                 </form>
                             @endif
